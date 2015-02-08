@@ -1,12 +1,12 @@
 var chalk   = require('chalk'),
     nodemon = require('gulp-nodemon')
 
-module.exports = (options) => {
+module.exports = function(options) {
 
   var gulp       = options.gulp,
       livereload = options.livereload
 
-  gulp.task('watch', ['build'], () => {
+  gulp.task('watch', ['build'], function() {
     livereload.listen()
 
     gulp.watch('**/*.hbs', ['watch-handlebars'])
@@ -18,19 +18,20 @@ module.exports = (options) => {
       ext: 'hbs js',
       ignore: ['*.css', '*.styl'],
       //nodeArgs: ['--debug'],
-      script: 'index.js'})
-      //.on('change', ['lint'])
-      .on('restart', function () {
+      script: 'index.js'
+    })
+    //.on('change', ['lint'])
+    .on('restart', function () {
 
-        var files = arguments[0]
+      var files = arguments[0]
 
-        files.forEach( (file) => {
-          file = file.replace(process.cwd(), '') // Just show relative file path.
+      files.forEach( function(file) {
+        file = file.replace(process.cwd(), '') // Just show relative file path.
 
-          console.log('File changed:', chalk.yellow(file))
-        })
-
+        console.log('File changed:', chalk.yellow(file))
       })
+
+    })
 
   })
 
