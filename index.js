@@ -4,9 +4,10 @@ var chalk   = require('chalk'),
 module.exports = function(options) {
 
   var gulp       = options.gulp,
-      livereload = options.livereload
+      livereload = options.livereload,
+      sequence   = (options.sequence || ['build'])
 
-  gulp.task('watch', ['build'], function() {
+  gulp.task('watch', sequence, function() {
     livereload.listen()
 
     gulp.watch('**/*.hbs', ['watch-handlebars'])
